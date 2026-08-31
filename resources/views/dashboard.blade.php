@@ -9,16 +9,18 @@
             </div>
         </div>
     </header>
-    <div class="card text-center">
-        <div class="card-header">
-            <h4>CRUDs</h4>
-        </div>
-        <div class="card-body">
-            <a href="{{ route('dashboard.posts.index') }}" class="card-link">Posts</a>
-            <a href="" class="card-link">Users</a>
-            <a href="{{ route('dashboard.comments.index') }}" class="card-link">Comments</a>
-            
-            
+    <div class="d-flex container justify-content-md-center align-items-center">
+        <div class="card text-center" style="width: 60%;">
+            <div class="card-header">
+                <h4>CRUDs</h4>
+            </div>
+            <div class="card-body">
+                <a href="{{ route('dashboard.posts.index') }}" class="card-link">Posts</a>
+                <a href="#!" class="card-link disabled">Users</a>
+                <a href="#!" class="card-link disabled">Comments</a>
+                
+                
+            </div>
         </div>
     </div>
     
