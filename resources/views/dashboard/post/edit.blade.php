@@ -2,7 +2,7 @@
 @section('content')
 <!-- Page content-->
 <div class="d-flex container justify-content-md-center align-items-center" style="height: 90vh;">
-    <div class="card mb-10 row justify-content-md-center p-3" style="width: 400px; height: min-content;">
+    <div class="card mb-10 row justify-content-md-center p-3" >
         <h1 class="text-center">{{ __('Edit a Post') }}</h1>
         <form class="mb-4" action="{{ route('dashboard.posts.update', ['id' => $post->id]) }}" method="POST">
             @csrf

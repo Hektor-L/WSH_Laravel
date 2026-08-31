@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    public function index(){
+    public function index() {
         //O site pega todas as instâncias de posts.
         $posts = Post::paginate(10);
         //Retorna a lista completa de posts
         return view('dashboard.post.index', ['posts' => $posts, 'filtro' => '']);
     }
 
-    public function create(){
+    public function create(Request $request): View {
         //Redireciona o usuário à tela de criação de posts
-        return view('dashboard.post.create');
+        $categories = Category::all();
+        return view('dashboard.post.create', ['user' => $request->user(), 'categories' => $categories]);
     }
 
     public function store(Request $request) {
@@ -26,6 +29,7 @@ class PostController extends Controller
             $post->title = $request->input('title');
             $post->description = $request->input('description');
             $post->poster_id = $request->input('poster_id');
+            $post->category_id = $request->input('category_id');
             $post->save();
             //Mensagem de êxito.
             session()->flash('msg', 'Armazenado com sucesso!');
@@ -34,7 +38,7 @@ class PostController extends Controller
             //Mensagem de erro.
         } catch (\Exception $e) {
             session()->flash('erro', 'Erro ao armazenar: ' . $e->getMessage());
-            return view('dashboard.post.create');
+            return redirect()->route('dashboard.posts.create');
         }
         
     }
@@ -58,6 +62,7 @@ class PostController extends Controller
             $post->title = $request->input('title');
             $post->description = $request->input('description');
             $post->poster_id = $request->input('poster_id');
+            $post->category_id = $request->input('category_id');
             $post->save();
             //mensagem de êxito.
             session()->flash('msg', 'Atualizado com sucesso!');
@@ -65,7 +70,7 @@ class PostController extends Controller
             //Mensagem de erro.
         } catch (\Exception $e) {
             session()->flash('erro', 'Erro ao atualizar: ' . $e->getMessage());
-            return redirect()->route('dashboard.posts.index');
+            return redirect()->route('dashboard.posts.view', ['post' => $post]);
         }   
     }
 

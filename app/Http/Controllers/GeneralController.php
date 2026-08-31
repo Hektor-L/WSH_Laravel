@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class GeneralController extends Controller
 {
@@ -16,16 +17,20 @@ class GeneralController extends Controller
         return view('index', ['posts' => $posts, 'categories' => $categories,'filtro' => '']);
     }
 
-    public function create(){
-        //Redireciona o usuário à tela de criação de posts
-        return view('post_create');
+    public function create(Request $request): View
+    {
+        $categories = Category::all();
+        return view('post-create', ['user' => $request->user(), 'categories' => $categories]);
     }
 
     public function store(Request $request) {
         try {
             //Armazena as informações dadas
             $post = new Post();
-            $post->nome = $request->input('nome');
+            $post->title = $request->input('title');
+            $post->description = $request->input('description');
+            $post->poster_id = $request->input('poster_id');
+            $post->category_id = $request->input('category_id');
             $post->save();
             //Mensagem de êxito.
             session()->flash('msg', 'Armazenado com sucesso!');
@@ -34,7 +39,7 @@ class GeneralController extends Controller
             //Mensagem de erro.
         } catch (\Exception $e) {
             session()->flash('erro', 'Erro ao armazenar: ' . $e->getMessage());
-            return view('post_create');
+            return redirect()->route('dashboard.posts.create');
         }
     }
 
@@ -57,6 +62,7 @@ class GeneralController extends Controller
             $post->title = $request->input('title');
             $post->description = $request->input('description');
             $post->poster_id = $request->input('poster_id');
+            $post->category_id = $request->input('category_id');
             $post->save();
             //mensagem de êxito.
             session()->flash('msg', 'Atualizado com sucesso!');
@@ -93,5 +99,20 @@ class GeneralController extends Controller
                        ->get();
         //redireciona o usuário à lista resultante.
         return view('index', ['posts' => $posts, 'filtro' => $filtro]);
+    }
+
+    public function filterByCategory($id) {
+        try {
+            $posts = Post::where('category_id', $id)
+                        ->orderBy('id')
+                        ->paginate(10);
+            $categories = Category::all()->split(2);
+            return view('index', ['posts' => $posts, 'categories' => $categories,'filtro' => '']);
+        } catch (\Exception $e) {
+            session()->flash('erro', 'Erro ao excluir: ' . $e->getMessage());
+            return redirect()->route('index');
+        }
+        //procura posts correspondentes.
+        
     }
 }

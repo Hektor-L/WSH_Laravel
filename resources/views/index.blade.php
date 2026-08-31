@@ -5,25 +5,19 @@
             <div class="container">
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">{{ __('Welcome to') }} WorkServiceHub!</h1>
-                    <p class="lead mb-0"> {{ __("A Job related forum to search for a job opening or for workers if you're an employer.") }}</p>
+                    <p class="lead mb-3"> {{ __("A Job related forum to search for a job opening or for workers if you're an employer.") }}</p>
+                    @auth
+                        <a class="btn btn-outline-primary btn-lg" href="{{ route('posts.create') }}" style="width: 70%; min-width: max-content;">{{ __('Create a new post') }} <i class="bi bi-pencil-square"></i></a>
+                    @endauth
+                        
                 </div>
             </div>
         </header>
         <!-- Page content-->
-        <a class="btn btn-outline-primary btn-lg" href="{{ route('posts.create') }}">{{ __('Create a new post') }} <i class="bi bi-pencil-square"></i></a>
         <div class="container">
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
-                    <!-- Featured blog post-->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h2 class="card-title">Featured Post Title</h2>
-                            <div class="small text-muted">January 1, 2023</div>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
                         @foreach ($posts as $post)
@@ -41,7 +35,7 @@
                                     <h2 class="card-title h4">{{ $post->title }}</h2>
                                     <div class="small text-muted">{{ __($post->created_at->format('jS \o\f F\, Y\. h:i:s A T')) }}</div>
                                     <p class="card-text">{{ $description }}</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
+                                    <a class="btn btn-primary" href="{{ route('posts.view', ['id' => $post->id]) }}">Read more →</a>
                                 </div>
                             </div>
                         </div>
@@ -52,16 +46,6 @@
                 </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Search</div>
-                        <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                            </div>
-                        </div>
-                    </div>
                     <!-- Categories widget-->
                     <div class="card mb-4">
                         <div class="card-header">Categories</div>
@@ -71,7 +55,7 @@
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
                                         @foreach ($group as $category)
-                                            <li><a href="#!">{{ $category->name }}</a></li>
+                                            <li><a href="{{ route('posts.by-category', $category->id) }}">{{ $category->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>

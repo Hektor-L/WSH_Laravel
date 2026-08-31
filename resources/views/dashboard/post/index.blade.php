@@ -5,7 +5,10 @@
     <div class="container">
         <div class="text-center my-5">
             <h1 class="fw-bolder">{{ __('Dashboard') }}</h1>
-            <h3 class="lead mb-0"> {{ __('Posts') }}</h3>
+            <h3 class="lead mb-3"> {{ __('Posts') }}</h3>
+        @auth
+            <a class="btn btn-outline-primary btn-lg" href="{{ route('dashboard.posts.create') }}" style="width: 70%; min-width: max-content;">{{ __('Create a new post') }} <i class="bi bi-pencil-square"></i></a>
+        @endauth
         </div>
     </div>
 </header>

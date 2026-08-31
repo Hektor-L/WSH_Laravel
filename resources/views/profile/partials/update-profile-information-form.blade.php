@@ -24,12 +24,19 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        <div class="form-floating @error('name') is-invalid @enderror">
+            <input type="date" id="birthDate" name="birthDate" value="{{ old('birthDate', $user->birthDate) }}" class="block my-2 w-full form-control @error('birthDate') is-invalid @enderror" placeholder="{{ __('Birth date') }}" autofocus autocomplete="bday" />
+            <label for="birthDate">{{ __('Birth Date') }}</label>
+            @error('birthDate')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
         <div class="form-floating @error('email') is-invalid @enderror">
-                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" class="block my-2 w-full form-control @error('email') is-invalid @enderror" placeholder="E-mail" autofocus autocomplete="email" />
-                <label for="email">E-mail</label>
-                @error('email')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+            <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" class="block my-2 w-full form-control @error('email') is-invalid @enderror" placeholder="E-mail" autofocus autocomplete="email" />
+            <label for="email">E-mail</label>
+            @error('email')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-sm my-2">
