@@ -1,0 +1,20 @@
+kind: wasmer.io/App.v0
+name: WorkServiceHub
+owner: hektor-l
+package: .
+env:
+  APP_ENV: staging
+  APP_DEBUG: "true"
+  APP_KEY: "base64:HQuIXd2TCvJF/NNSRYowtPYyHTCudqqcHAbd8j/U01A="
+  DB_CONNECTION: mysql
+  SESSION_DRIVER: database
+  CACHE_STORE: database
+  QUEUE_CONNECTION: sync
+  LOG_CHANNEL: stderr
+capabilities:
+  database:
+    engine: mysql
+locality:
+  regions:
+    - us-losa1
+app_id: da_nQgIotrUxB81

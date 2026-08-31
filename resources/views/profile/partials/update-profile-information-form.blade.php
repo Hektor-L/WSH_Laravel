@@ -13,19 +13,19 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="POST" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
         <div class="form-floating @error('name') is-invalid @enderror">
-            <input type="text" id="name" name="name" class="block my-2 w-full form-control @error('email') is-invalid @enderror" placeholder="{{ __('Username') }}" autofocus autocomplete="username" />
+            <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" class="block my-2 w-full form-control @error('email') is-invalid @enderror" placeholder="{{ __('Username') }}" autofocus autocomplete="username" />
             <label for="name">{{ __('Username') }}</label>
             @error('name')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-floating @error('email') is-invalid @enderror">
-                <input type="email" id="email" name="email" class="block my-2 w-full form-control @error('email') is-invalid @enderror" placeholder="E-mail" autofocus autocomplete="email" />
+                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" class="block my-2 w-full form-control @error('email') is-invalid @enderror" placeholder="E-mail" autofocus autocomplete="email" />
                 <label for="email">E-mail</label>
                 @error('email')
                     <div class="invalid-feedback">{{ $message }}</div>

@@ -10,6 +10,7 @@
             </div>
         </header>
         <!-- Page content-->
+        <a class="btn btn-outline-primary btn-lg" href="{{ route('posts.create') }}">{{ __('Create a new post') }} <i class="bi bi-pencil-square"></i></a>
         <div class="container">
             <div class="row">
                 <!-- Blog entries-->

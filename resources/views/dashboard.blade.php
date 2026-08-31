@@ -15,8 +15,8 @@
         </div>
         <div class="card-body">
             <a href="{{ route('dashboard.posts.index') }}" class="card-link">Posts</a>
-            <a href="#" class="card-link">Users</a>
-            <a href="#" class="card-link">Comments</a>
+            <a href="" class="card-link">Users</a>
+            <a href="{{ route('dashboard.comments.index') }}" class="card-link">Comments</a>
             
             
         </div>

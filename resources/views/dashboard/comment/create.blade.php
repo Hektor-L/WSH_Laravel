@@ -7,16 +7,16 @@
         <form class="mb-4" action="{{ route('dashboard.posts.store') }}" method="POST">
             @csrf
             <div class="row">
-                <div class="col-md-12">
-                    <input for="title" type="text" name="title" id="title" class="form-control mb-2" placeholder="Título do Post">
+                <div class="col-md-2">
+                    <input for="post_id" type="text" name="post_id" id="post_id" class="form-control mb-2" placeholder="User ID">
+                </div>
+                <div class="col-md-2">
+                    <input for="commenter_id" type="text" name="commenter_id" id="commenter_id" class="form-control mb-2" placeholder="User ID">
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2">
-                    <input for="poster_id" type="text" name="poster_id" id="poster_id" class="form-control mb-2" placeholder="User ID">
-                </div>
                 <div class="col-md-10">
-                    <textarea for="description" class="form-control" rows="2" id="description" name="description" placeholder="Describe your topic here!"></textarea>
+                    <textarea for="text" class="form-control" rows="2" id="text" name="text" placeholder="Describe your topic here!"></textarea>
                 </div>
             </div>
             <div class="row">

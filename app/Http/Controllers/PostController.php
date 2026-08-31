@@ -34,7 +34,7 @@ class PostController extends Controller
             //Mensagem de erro.
         } catch (\Exception $e) {
             session()->flash('erro', 'Erro ao armazenar: ' . $e->getMessage());
-            return redirect()->route('dashboard.posts.create');
+            return view('dashboard.post.create');
         }
         
     }

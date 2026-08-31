@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class GeneralController extends Controller
@@ -19,7 +18,7 @@ class GeneralController extends Controller
 
     public function create(){
         //Redireciona o usuário à tela de criação de posts
-        return redirect()->route('posts.create');
+        return view('post_create');
     }
 
     public function store(Request $request) {
@@ -35,9 +34,8 @@ class GeneralController extends Controller
             //Mensagem de erro.
         } catch (\Exception $e) {
             session()->flash('erro', 'Erro ao armazenar: ' . $e->getMessage());
-            return redirect()->route('posts.create');
+            return view('post_create');
         }
-        
     }
 
     public function view($id) {
@@ -94,6 +92,6 @@ class GeneralController extends Controller
                        ->orderBy('id')
                        ->get();
         //redireciona o usuário à lista resultante.
-        return view('post.lista', ['posts' => $posts, 'filtro' => $filtro]);
+        return view('index', ['posts' => $posts, 'filtro' => $filtro]);
     }
 }
