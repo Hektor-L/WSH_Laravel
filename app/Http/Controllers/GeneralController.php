@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -44,15 +45,10 @@ class GeneralController extends Controller
     }
 
     public function view($id) {
-        //Se der sucesso, redireciona o usuário à tela de edição de posts.
-        try {
-            $post = Post::find($id);
-            return redirect()->route('posts.view', ['post' => $post]);
-        //se der falha, cospe mensagem de erro.
-        } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao carregar: ' . $e->getMessage());
-            return redirect()->route('index');
-        }
+        //Redireciona o usuário à tela de edição de posts.
+        $post = Post::find($id);
+        $comments = Comment::where('post_id', $post->id)->paginate(15);
+        return view('post-view', ['post' => $post, 'comments' => $comments]);
     }
 
     public function update(Request $request, $id) {

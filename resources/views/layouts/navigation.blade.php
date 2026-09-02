@@ -5,16 +5,15 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="{{ route('index') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ route('index') }}">Blog</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{ route('index') }}">Home</a></li>
             @if (Route::has('login'))
                 @auth
-                    <li class="nav-item dropdown">
-                        <a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span>{{ Auth::user()->name }}</span>
+                    <li class="nav-item dropdown ps-2">
+                        <a role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img width="40px" class="object-fit-cover rounded-circle" src="{{ asset("Default-ProfilePic.svg") }}">
                         </a>
-                        <ul class="dropdown-menu" id="navbarDropdown">
+                        <ul class="dropdown-menu dropdown-menu-end" id="navbarDropdown">
+                            <li><span class="dropdown-header">{{ Auth::user()->name }}</span></li>
                             <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
                             <li><a class="dropdown-item" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
                             <li><hr class="dropdown-divider"></li>

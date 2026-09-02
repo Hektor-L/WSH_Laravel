@@ -35,7 +35,7 @@
                                     <h2 class="card-title h4">{{ $post->title }}</h2>
                                     <div class="small text-muted">{{ __($post->created_at->format('jS \o\f F\, Y\. h:i:s A T')) }}</div>
                                     <p class="card-text">{{ $description }}</p>
-                                    <a class="btn btn-primary" href="{{ route('posts.view', ['id' => $post->id]) }}">Read more →</a>
+                                    <a class="btn btn-primary" href="{{ route('posts.view', $post->id) }}">Read more →</a>
                                 </div>
                             </div>
                         </div>

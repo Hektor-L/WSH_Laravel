@@ -7,7 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',                  [GeneralController::class, 'index'])->name('index');
-Route::get('/view?p={id}',       [GeneralController::class, 'view'])->name('posts.view');
+Route::get('/view-post-{id}',       [GeneralController::class, 'view'])->name('posts.view');
 Route::get('/posts-by-category-{id}', [GeneralController::class, 'filterByCategory'])->name('posts.by-category');
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/create-post',   [GeneralController::class, 'create'])->name('posts.create');
