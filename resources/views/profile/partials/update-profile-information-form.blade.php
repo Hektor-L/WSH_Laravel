@@ -24,7 +24,7 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <div class="form-floating @error('name') is-invalid @enderror">
+        <div class="form-floating @error('birthDate') is-invalid @enderror">
             <input type="date" id="birthDate" name="birthDate" value="{{ old('birthDate', $user->birthDate) }}" class="block my-2 w-full form-control @error('birthDate') is-invalid @enderror" placeholder="{{ __('Birth date') }}" autofocus autocomplete="bday" />
             <label for="birthDate">{{ __('Birth Date') }}</label>
             @error('birthDate')
@@ -60,13 +60,7 @@
             <button class="btn btn-secondary">{{ __('Save') }}</button>
 
             @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                >{{ __('Saved.') }}</p>
+                <p class="text-success-emphasis">{{ __('Saved.') }}</p>
             @endif
         </div>
     </form>

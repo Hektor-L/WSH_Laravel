@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->date('birthDate')->nullable();
-            $table->enum('type', ['common', 'worker', 'employer', 'staff']);
+            $table->string('type')->default(UserType::Common->value);
             $table->text('description')->nullable();
             $table->string('password');
             $table->rememberToken();
