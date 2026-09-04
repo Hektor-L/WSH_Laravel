@@ -7,7 +7,7 @@
             @csrf
             <!-- Name -->
             <div class="form-floating @error('name') is-invalid @enderror">
-                <input type="text" id="name" name="name" class="block my-2 w-full form-control @error('email') is-invalid @enderror" placeholder="{{ __('Username') }}" autofocus autocomplete="username" />
+                <input type="text" id="name" name="name" class="block my-2 w-full form-control @error('name') is-invalid @enderror" placeholder="{{ __('Username') }}" autofocus autocomplete="username" />
                 <label for="name">{{ __('Username') }}</label>
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -40,7 +40,7 @@
             <!-- User Type -->
             <div class="form-floating @error('type') is-invalid @enderror">
                 <select class="form-select" name="type" id="type">
-                    <option selected>Choose your user type</option>
+                    <option disabled selected>Choose your user type</option>
                     <option value="common">{{ __('Common') }}</option>
                     <option value="worker">{{ __('Worker') }}</option>
                     <option value="employer">{{ __('Employer') }}</option>
