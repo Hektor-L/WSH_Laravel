@@ -2,9 +2,7 @@
 @section('content')
     <header class="py-5 border-bottom mb-4">
         <div class="container">
-            <h2 class="text-center my-2">
-                {{ __('Profile') }}
-            </h2>
+            <h2 class="text-center my-2">{{ __('Profile') }}</h2>
         </div>
     </header>
     <div class="py-12">

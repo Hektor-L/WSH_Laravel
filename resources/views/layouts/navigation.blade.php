@@ -5,12 +5,11 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" href="{{ route('index') }}">Home</a></li>
-            @if (Route::has('login'))
+                <li class="nav-item"><a class="nav-link active" href="{{ route('index') }}">{{ __('Home') }}</a></li>
                 @auth
                     <li class="nav-item dropdown ps-2">
                         <a role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img width="40px" class="object-fit-cover rounded-circle" src="{{ asset("Default-ProfilePic.svg") }}">
+                            <img width="40px" class="object-fit-cover rounded-circle" src="{{ asset("WorkServiceHub-DefaultProfilePic.svg") }}">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" id="navbarDropdown">
                             <li><span class="dropdown-header">{{ Auth::user()->name }}</span></li>
@@ -23,12 +22,9 @@
                         </ul>
                     </li>
                 @else
-                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                    @if (Route::has('register'))
-                        <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
-                    @endif
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">{{ __('Sign Up') }}</a></li>
                 @endauth
-            @endif
             </ul>
         </div>
     </div>

@@ -24,8 +24,8 @@
         <div class="modal-body">
             <p>{{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}</p>
             <div class="form-floating @error('password') is-invalid @enderror">
-                <input type="password" id="password" name="password" class="block my-2 w-full form-control @error('password') is-invalid @enderror" placeholder="Password" autofocus autocomplete="current-password" />
-                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="block my-2 w-full form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}" autofocus autocomplete="current-password" />
+                <label for="password">{{ __('Password') }}</label>
             @error('password')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror

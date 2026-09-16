@@ -1,14 +1,15 @@
 @extends('layouts.app')
 @section('content')
-<div class="d-flex container justify-content-md-center align-items-center" style="height: 90vh;">
+<div class="d-flex flex-column container justify-content-md-center align-items-center" style="height: 90vh;">
+    <img src="{{ asset('WorkServiceHub-LogoSlang.svg') }}" alt="Logo" class="mb-4" style="width: 200px; height: 78px;">
     <div class="card mb-10 row justify-content-md-center p-3" style="width: 400px; height: min-content;">
-        <h1 class="text-center">Login</h1>
+        <h1 class="text-center">{{ __('Login') }}</h1>
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <!-- Email Address -->
             <div class="form-floating @error('email') is-invalid @enderror">
-                <input type="email" id="email" name="email" class="block my-2 w-full form-control @error('email') is-invalid @enderror" placeholder="E-mail" autofocus autocomplete="email" />
-                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" class="block my-2 w-full form-control @error('email') is-invalid @enderror" placeholder="{{ __('E-mail') }}" autofocus autocomplete="email" />
+                <label for="email">{{ __('E-mail') }}</label>
                 @error('email')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -16,8 +17,8 @@
 
             <!-- Password -->
             <div class="form-floating @error('password') is-invalid @enderror">
-                <input type="password" id="password" name="password" class="block my-2 w-full form-control @error('password') is-invalid @enderror" placeholder="Password" autofocus autocomplete="current-password" />
-                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="block my-2 w-full form-control @error('password') is-invalid @enderror" placeholder="{{ __('Password') }}" autofocus autocomplete="current-password" />
+                <label for="password">{{ __('Password') }}</label>
             @error('password')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -37,7 +38,7 @@
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
-                <button class="btn btn-primary ms-3">{{ __('Log in') }}</button>
+                <button class="btn btn-primary ms-3">{{ __('Login') }}</button>
             </div>
         </form>
     </div>

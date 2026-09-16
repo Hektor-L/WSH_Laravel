@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function index() {
         //O site pega todas as instâncias de posts.
-        $posts = Post::paginate(10);
+        $posts = Post::paginate(40);
         //Retorna a lista completa de posts
         return view('dashboard.post.index', ['posts' => $posts, 'filtro' => '']);
     }
@@ -43,7 +43,7 @@ class PostController extends Controller
         
     }
 
-    public function view($id) {
+    public function view(int $id) {
         //Se der sucesso, redireciona o usuário à tela de edição de posts.
         try {
             $post = Post::find($id);
@@ -55,7 +55,7 @@ class PostController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, int $id) {
         try {
             //Armazena a atualização da post.
             $post = Post::find($id);
@@ -74,7 +74,7 @@ class PostController extends Controller
         }   
     }
 
-    public function destroy($id) {
+    public function destroy(int $id) {
         try {
             //Exclui a post requerida.
             $post = Post::find($id);

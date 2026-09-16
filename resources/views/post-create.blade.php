@@ -3,13 +3,13 @@
 <!-- Page header with logo and tagline-->
 <div class="d-flex container justify-content-md-center align-items-center" style="height: 90vh;">
     <div class="card mb-10 row justify-content-md-center p-3" style="width: 65%; height: min-content;">
-        <h1 class="text-center">{{ __('Create a Post') }}</h1>
+        <h1 class="text-center">Create a Post</h1>
         <form class="mb-3" action="{{ route('posts.store') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="form-floating @error('title') is-invalid @enderror">
                     <input type="text" name="title" id="title" class="form-control mb-3" placeholder="Post Title" value="{{ old('title') }}">
-                    <label class="ms-3" for="category_id">{{ __('Post Title') }}</label>
+                    <label class="ms-3" for="category_id">Post Title</label>
                     @error('title')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -21,26 +21,26 @@
             <div class="row">
                 <div class="form-floating @error('description') is-invalid @enderror">
                     <textarea for="description" class="form-control mb-3" style="height: 150px"id="description" name="description" placeholder="Post Description">{{ old('description') }}</textarea>
-                    <label class="ms-3" for="description">{{ __('Post Description') }}</label>
+                    <label class="ms-3" for="description">Post Description</label>
                     @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-floating @error('category_id') is-invalid @enderror">
                     <select for="category_id" class="form-select mb-3" name="category_id" id="category_id">
-                        <option selected>{{ __('Select the post category') }}</option>
+                        <option selected>Select the post category</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ __($category->name) }}</option>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    <label class="ms-3" for="category_id">{{ __('Category ID') }}</label>
+                    <label class="ms-3" for="category_id">Category ID</label>
                     @error('category_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             <div class="row">
                 <div class="col-md-4">
-                    <button class="btn btn-primary" type="submit">{{ __('Create') }}</button>
+                    <button class="btn btn-primary" type="submit">Create</button>
                 </div>
             </div>
         </form>

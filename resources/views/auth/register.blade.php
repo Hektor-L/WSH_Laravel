@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div class="d-flex container justify-content-md-center align-items-center" style="height: 90vh;">
+<div class="d-flex flex-column container justify-content-md-center align-items-center" style="height: 90vh;">
+    <img src="{{ asset('WorkServiceHub-LogoSlang.svg') }}" alt="Logo" class="mb-4" style="width: 200px; height: 78px;">
     <div class="card mb-10 row justify-content-md-center p-3" style="width: 400px; height: min-content;">
-        <h1 class="text-center">Register</h1>
+        <h1 class="text-center">{{ __('Sign Up') }}</h1>
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <!-- Name -->
@@ -40,7 +41,7 @@
             <!-- User Type -->
             <div class="form-floating @error('type') is-invalid @enderror">
                 <select class="form-select" name="type" id="type">
-                    <option disabled selected>Choose your user type</option>
+                    <option disabled selected>{{ __('Choose your user type') }}</option>
                     <option value="common">{{ __('Common') }}</option>
                     <option value="worker">{{ __('Worker') }}</option>
                     <option value="employer">{{ __('Employer') }}</option>
@@ -55,10 +56,8 @@
             @enderror
 
             <div class="d-flex items-center justify-content-between mt-3">
-                <a class="" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-                <button class="btn btn-primary ms-3">{{ __('Register') }}</button>
+                <a class="" href="{{ route('login') }}">{{ __('Already registered?') }}</a>
+                <button class="btn btn-primary ms-3">{{ __('Sign Up') }}</button>
             </div>
         </form>
     </div>

@@ -1,12 +1,8 @@
 <section>
     <header>
-        <h2 class="text-lg">
-            {{ __('Update Password') }}
-        </h2>
+        <h2 class="text-lg">{{ __('Update Password') }}</h2>
 
-        <p class="my-1">
-            {{ __('Ensure your account is using a long, random password to stay secure.') }}
-        </p>
+        <p class="my-1">{{ __('Ensure your account is using a long, random password to stay secure.') }}</p>
     </header>
 
     <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
@@ -39,7 +35,7 @@
         <div class="flex items-center gap-4">
             <button class="btn btn-secondary">{{ __('Save') }}</button>
             @if (session('status') === 'password-updated')
-                <p>{{ __('Saved.') }}</p>
+                <p class="text-success-emphasis">{{ __('Saved.') }}</p>
             @endif
         </div>
     </form>

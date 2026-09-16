@@ -1,1 +1,0 @@
-<image width="200px" height="150px" src="{{ asset('WorkServiceHub-Logo-Slang.svg') }}"/>

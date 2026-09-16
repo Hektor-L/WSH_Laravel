@@ -44,14 +44,14 @@ class GeneralController extends Controller
         }
     }
 
-    public function view($id) {
+    public function view(int $id) {
         //Redireciona o usuário à tela de edição de posts.
         $post = Post::find($id);
         $comments = Comment::where('post_id', $post->id)->paginate(15);
         return view('post-view', ['post' => $post, 'comments' => $comments]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, int $id) {
         try {
             //Armazena a atualização da post.
             $post = Post::find($id);
@@ -70,7 +70,7 @@ class GeneralController extends Controller
         }   
     }
 
-    public function destroy($id) {
+    public function destroy(int $id) {
         try {
             //Exclui a post requerida.
             $post = Post::find($id);
@@ -97,7 +97,7 @@ class GeneralController extends Controller
         return view('index', ['posts' => $posts, 'filtro' => $filtro]);
     }
 
-    public function filterByCategory($id) {
+    public function filterByCategory(int $id) {
         try {
             $posts = Post::where('category_id', $id)
                         ->orderBy('id')
