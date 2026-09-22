@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="d-flex flex-column container justify-content-md-center align-items-center" style="height: 90vh;">
-    <img src="{{ asset('WorkServiceHub-LogoSlang.svg') }}" alt="Logo" class="mb-4" style="width: 200px; height: 78px;">
+    <div class="bg-dark rounded-3 d-flex justify-content-center align-items-center p-4 mb-4">
+        <img src="{{ asset('WorkServiceHub-LogoSlang.svg') }}" alt="Logo" style="width: 200px; height: 78px;">
+    </div>
     <div class="card mb-10 row justify-content-md-center p-3" style="width: 400px; height: min-content;">
         <h1 class="text-center">{{ __('Sign Up') }}</h1>
         <form method="POST" action="{{ route('register') }}">

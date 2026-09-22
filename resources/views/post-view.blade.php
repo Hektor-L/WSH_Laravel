@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <header class="py-5 bg-dark border-bottom mb-4">
+    <header class="py-5 border-bottom mb-4">
         <p class="fs-2">{{ $post->title }}</p>
         <p class="fw-light">{{ __('Posted in the ' . $post->created_at->format('jS \o\f F\, Y\. h:i:s A T') . ', by ' . $post->users->name )}}</p>
     </header>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
         <!-- Page header with logo and tagline-->
-        <header class="py-5 bg-dark border-bottom mb-4">
+        <header class="py-5 border-bottom mb-4">
             <div class="container">
                 <div class="text-center my-5">
                     <h1 class="fw-bolder">{{ __('Welcome to WorkServiceHub!') }}</h1>

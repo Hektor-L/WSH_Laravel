@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <header class="py-5 bg-dark border-bottom mb-4">
+    <header class="py-5 border-bottom mb-4">
         <div class="container">
             <div class="text-center my-2"><h2 class="fw-bolder">{{ __('Dashboard') }}</h2></div>
         </div>
