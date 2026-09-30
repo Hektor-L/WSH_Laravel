@@ -20,10 +20,10 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <div class="form-floating @error('birthDate') is-invalid @enderror">
-            <input type="date" id="birthDate" name="birthDate" value="{{ old('birthDate', $user->birthDate) }}" class="block my-2 w-full form-control @error('birthDate') is-invalid @enderror" placeholder="{{ __('Birth Date') }}" autofocus autocomplete="bday" />
-            <label for="birthDate">{{ __('Birth Date') }}</label>
-            @error('birthDate')
+        <div class="form-floating @error('birth_date') is-invalid @enderror">
+            <input type="date" id="birth_date" name="birth_date" value="{{ old('birth_date', $user->birth_date) }}" class="block my-2 w-full form-control @error('birth_date') is-invalid @enderror" placeholder="{{ __('Birth Date') }}" autofocus autocomplete="bday" />
+            <label for="birth_date">{{ __('Birth Date') }}</label>
+            @error('birth_date')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>

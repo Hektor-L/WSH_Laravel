@@ -55,7 +55,7 @@
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
                                         @foreach ($group as $category)
-                                            <li><a href="{{ route('posts.by-category', $category->id) }}">{{ $category->name }}</a></li>
+                                            <li class="py-1"><a href="{{ route('posts.by-category', $category->id) }}">{{ $category->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>

@@ -13,13 +13,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-#[Fillable(['name', 'email', 'password', 'type', 'birthDate', 'description'])]
+#[Fillable(['name', 'email', 'password', 'type', 'birth_date', 'description'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use SoftDeletes, HasFactory, Notifiable;
+    use SoftDeletes, HasApiTokens, HasFactory, Notifiable;
 
     public $timestamps = true;
     /**
