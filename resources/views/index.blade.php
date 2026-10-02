@@ -7,7 +7,7 @@
                     <h1 class="fw-bolder">{{ __('Welcome to WorkServiceHub!') }}</h1>
                     <p class="lead mb-3">{{ __('A Job related forum to search for a job opening or for workers if you\'re an employer.') }}</p>
                     @auth
-                        <a class="btn btn-outline-primary btn-lg" href="{{ route('posts.create') }}" style="width: 70%; min-width: max-content;">{{ __('Create a new post') }} <i class="bi bi-pencil-square"></i></a>
+                        <a class="btn btn-outline-primary btn-lg" href="{{ route('posts.create') }}" style="width: 70%; min-width: max-content;">{{ __('Create a new Post') }} <i class="bi bi-pencil-square"></i></a>
                     @endauth
                         
                 </div>

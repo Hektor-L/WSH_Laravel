@@ -199,9 +199,11 @@
   "Welcome to WorkServiceHub!": "Bem-vindo ao WorkServiceHub!",
   "A Job related forum to search for a job opening or for workers if you're an employer.": "Um fórum relacionado a empregos para procurar uma vaga de trabalho ou trabalhadores se você for um empregador.",
   "Posts": "Publicações",
+  "Post": "Publicação",
   "Users": "Usuários",
   "User":  "Usuário",
   "Comments": "Comentários",
+  "Comment": "Comentário",
   "Comments:": "Comentários:",
   "Categories": "Categorias",
   "Category": "Categoria",
@@ -219,5 +221,14 @@
   "Edit": "Editar",
   "Create Post": "Criar Publicação",
   "Create a Post": "Criar uma Publicação",
-  "Create a new Post": "Criar uma nova Publicação"
+  "Create a new Post": "Criar uma nova Publicação",
+  "Select an user who will post": "Selecione um usuário que irá publicar",
+  "Select a post": "Selecione uma publicação",
+  "Select a category": "Selecione uma categoria",
+  "Comment Message": "Mensagem do Comentário",
+  "Create Comment": "Criar Comentário",
+  "Create a Comment": "Criar um Comentário",
+  "Create a new Comment": "Criar um novo Comentário",
+  "Select a post to comment": "Selecione uma publicação para comentar",
+  "Select an user who will comment": "Selecione um usuário que irá comentar"
 }

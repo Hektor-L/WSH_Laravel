@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class PostController extends Controller
 {
@@ -16,10 +14,11 @@ class PostController extends Controller
         return view('dashboard.post.index', ['posts' => $posts, 'filtro' => '']);
     }
 
-    public function create(Request $request): View {
+    public function create(Request $request) {
         //Redireciona o usuário à tela de criação de posts
-        $categories = Category::all();
-        return view('dashboard.post.create', ['user' => $request->user(), 'categories' => $categories]);
+        $users = \App\Models\User::all();
+        $categories = \App\Models\Category::all();
+        return view('dashboard.post.create', ['user' => $request->user(), 'categories' => $categories, 'users' => $users]);
     }
 
     public function store(Request $request) {
@@ -43,11 +42,13 @@ class PostController extends Controller
         
     }
 
-    public function view(int $id) {
+    public function edit(int $id) {
         //Se der sucesso, redireciona o usuário à tela de edição de posts.
         try {
+            $users = \App\Models\User::all();
+            $categories = \App\Models\Category::all();
             $post = Post::find($id);
-            return view('dashboard.post.edit', ['post' => $post]);
+            return view('dashboard.post.edit', ['post' => $post, 'users' => $users, 'categories' => $categories]);
         //se der falha, cospe mensagem de erro.
         } catch (\Exception $e) {
             session()->flash('erro', 'Erro ao carregar: ' . $e->getMessage());
@@ -70,7 +71,7 @@ class PostController extends Controller
             //Mensagem de erro.
         } catch (\Exception $e) {
             session()->flash('erro', 'Erro ao atualizar: ' . $e->getMessage());
-            return redirect()->route('dashboard.posts.view', ['post' => $post]);
+            return redirect()->route('dashboard.posts.edit', ['post' => $post]);
         }   
     }
 
@@ -78,6 +79,7 @@ class PostController extends Controller
         try {
             //Exclui a post requerida.
             $post = Post::find($id);
+            $post->comments()->delete(); // Delete related comments
             $post->delete();
             //Mensagem de êxito.
             session()->flash('msg', 'Registro excluído com sucesso!');
@@ -89,14 +91,11 @@ class PostController extends Controller
         }
     }
 
-    public function search(Request $request)
-    {
+    public function search(Request $request) {
         //Detecta o filtro dado na barra de pesquisa.
         $filtro = trim((string) $request->input('filtro', ''));
         //procura posts correspondentes.
-        $posts = Post::where('title', 'like', "%{$filtro}%")                  
-                       ->orderBy('id')
-                       ->paginate(10);
+        $posts = Post::where('title', 'like', "%$filtro%")->orderBy('id')->paginate(40);
         //redireciona o usuário à lista resultante.
         return view('dashboard.post.index', ['posts' => $posts, 'filtro' => $filtro]);
     }
