@@ -56,7 +56,6 @@ class ProfileController extends Controller
 
         $user->comments()->forceDelete();
         $user->posts()->forceDelete();
-        $user->interests()->delete();
         $user->forceDelete();
 
         $request->session()->invalidate();

@@ -42,7 +42,4 @@ class User extends Authenticatable
     public function comments(): HasMany {
         return $this->hasMany(Comment::class, 'commenter_id');
     }
-    public function interests(): HasMany {
-        return $this->hasMany(Interest::class, 'interestedUser_id');
-    }
 }

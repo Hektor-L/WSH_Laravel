@@ -82,7 +82,6 @@ class UserController extends Controller
             $user = User::find($id);
             $user->posts()->delete(); // Exclui os posts associados ao usuário
             $user->comments()->delete(); // Exclui os comentários associados ao usuário
-            $user->interests()->delete();
             $user->delete();
             //Mensagem de êxito.
             session()->flash('msg', 'Registro excluído com sucesso!');

@@ -102,7 +102,6 @@ class AuthController extends Controller
             $user = $request->user();
             $user->comments()->forceDelete();
             $user->posts()->forceDelete();
-            $user->interests()->delete();
             $user->forceDelete();
             //Mensagem de êxito.
             return response()->json([
