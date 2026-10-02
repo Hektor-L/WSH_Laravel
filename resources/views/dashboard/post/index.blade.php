@@ -5,7 +5,7 @@
     <div class="container">
         <div class="text-center my-5">
             <h1 class="fw-bolder">{{ __('Dashboard') }}</h1>
-            <h3 class="lead mb-3"> {{ __('Posts') }}</h3>
+            <h3 class="lead"> {{ __('Posts') }}</h3>
             <a class="btn btn-outline-primary btn-lg" href="{{ route('dashboard.posts.create') }}" style="width: 70%; min-width: max-content;">{{ __('Create a new Post') }} <i class="bi bi-pencil-square"></i></a>
         </div>
     </div>
@@ -87,11 +87,10 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <ul class="list-unstyled mb-0">
-                                <li><a href="#!">Users</a></li>
+                                <li><a href="{{ route('dashboard.users.index') }}">Users</a></li>
                                 <li><a href="{{ route('dashboard.posts.index') }}">Posts</a></li>
                                 <li><a href="{{ route('dashboard.comments.index') }}">Comments</a></li>
-                                <li><a href="#!">Categories</a></li>
-                                <li><a href="#!">Interests</a></li>
+                                <li><a href="{{ route('dashboard.categories.index') }}">Categories</a></li>
                             </ul>
                         </div>
                     </div>

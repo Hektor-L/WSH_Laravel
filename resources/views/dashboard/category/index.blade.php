@@ -5,8 +5,8 @@
     <div class="container">
         <div class="text-center my-5">
             <h1 class="fw-bolder">{{ __('Dashboard') }}</h1>
-            <h3 class="lead"> {{ __('Comments') }}</h3>
-            <a class="btn btn-outline-primary btn-lg" href="{{ route('dashboard.comments.create') }}" style="width: 70%; min-width: max-content;">{{ __('Create a new Comment') }} <i class="bi bi-pencil-square"></i></a>
+            <h3 class="lead"> {{ __('Categories') }}</h3>
+            <a class="btn btn-outline-primary btn-lg" href="{{ route('dashboard.categories.create') }}" style="width: 70%; min-width: max-content;">{{ __('Create a new Category') }} <i class="bi bi-pencil-square"></i></a>
         </div>
     </div>
 </header>
@@ -20,25 +20,19 @@
                 <thead>
                     <tr>
                         <th scope="col">{{ __('ID') }}</th>
-                        <th scope="col">{{ __('Post') }}</th>
-                        <th scope="col">{{ __('Author') }}</th>
-                        <th scope="col">{{ __('Date of Creation') }}</th>
-                        <th scope="col">{{ __('Date of Update') }}</th>
+                        <th scope="col">{{ __('Name') }}</th>
                         <th scope="col">{{ __('Actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-            @foreach ($comments as $comment)
+            @foreach ($categories as $category)
                 <tr>
-                    <th scope="row">{{ $comment->id }}</th>
-                    <td>{{ $comment->posts->title }}</td>
-                    <td>{{ $comment->users->name }}</td>
-                    <td>{{ $comment->created_at }}</td>
-                    <td>{{ $comment->updated_at }}</td>
-                    <td><a href="{{ route('dashboard.comments.edit', $comment->id) }}" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit</a>
-                        <a class="btn btn-outline-danger" role="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $comment->id }}"><i class="bi bi-trash3-fill"></i> Delete</a></td>
+                    <th scope="row">{{ $category->id }}</th>
+                    <td>{{ $category->name }}</td>
+                    <td><a href="{{ route('dashboard.categories.edit', $category->id) }}" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit</a>
+                        <a class="btn btn-outline-danger" role="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $category->id }}"><i class="bi bi-trash3-fill"></i> Delete</a></td>
                 </tr>
-                    <div class="modal fade" id="confirmDeleteModal{{ $comment->id }}" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
+                    <div class="modal fade" id="confirmDeleteModal{{ $category->id }}" tabindex="-1" aria-labelledby="confirmDeleteModal" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -46,11 +40,11 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Are you sure you want to delete this comment?</p>
+                                    <p>Are you sure you want to delete this category?</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <form action="{{ route('dashboard.comments.delete', $comment->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('dashboard.categories.delete', $category->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-primary">Confirm</button>
@@ -62,7 +56,7 @@
             @endforeach
                 </tbody>
             </table>
-            {{ $comments->links() }}
+            {{ $categories->links() }}
             <!-- Pagination-->
         </div>
         <!-- Side widgets-->
@@ -71,7 +65,7 @@
             <div class="card mb-4">
                 <div class="card-header">{{ __('Search') }}</div>
                 <div class="card-body">
-                    <form class="mb-3" method="POST" action="{{ route('dashboard.comments.search') }}">
+                    <form class="mb-3" method="POST" action="{{ route('dashboard.categories.search') }}">
                         @method('PUT')
                         <div class="input-group">
                             <input id="filtro" name="filtro" class="form-control" type="text" placeholder="{{ __('Search...') }}" value="{{ $filtro ?? '' }}" autofocus>
