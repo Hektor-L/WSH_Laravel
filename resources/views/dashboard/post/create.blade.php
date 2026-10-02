@@ -15,9 +15,14 @@
                     @enderror
                 </div>
                 <div class="form-floating @error('poster_id') is-invalid @enderror">
-                    <input type="number" name="poster_id" id="poster_id" class="form-control mb-3" placeholder="{{ __('Poster ID') }}" value="{{ old('poster_id') }}">
-                    <label class="ms-3" for="category_id">{{ __('Poster ID') }}</label>
-                    @error('poster_id')
+                    <select for="poster_id" class="form-select mb-3" name="poster_id" id="poster_id">
+                        <option selected>{{ __('Select an user who will post') }}</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                    <label class="ms-3" for="category_id">{{ __('Poster') }}</label>
+                    @error('category_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

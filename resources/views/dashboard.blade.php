@@ -11,9 +11,11 @@
                 <h4>CRUDs</h4>
             </div>
             <div class="card-body">
+                <a href="#!" class="card-link">{{ __('Users') }}</a>
                 <a href="{{ route('dashboard.posts.index') }}" class="card-link">{{ __('Posts') }}</a>
-                <a href="#!" class="card-link disabled">{{ __('Users') }}</a>
-                <a href="#!" class="card-link disabled">{{ __('Comments') }}</a>
+                <a href="{{ route('dashboard.comments.index') }}" class="card-link">{{ __('Comments') }}</a>
+                <a href="#!" class="card-link">{{ __('Categories') }}</a>
+                <a href="#!" class="card-link">{{ __('Interests') }}</a>
                 
                 
             </div>
