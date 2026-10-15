@@ -16,7 +16,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/create-post',   [GeneralController::class, 'create'])->name('posts.create');
     Route::post('/',             [GeneralController::class, 'storePost'])->name('posts.store');
     Route::post('/post-{postId}',    [GeneralController::class, 'storeComment'])->name('comments.store');
-    Route::post('/comment-{parentCommentId}',    [GeneralController::class, 'storeComment'])->name('replies.store');
+    Route::post('/comment-{parentCommentId}',    [GeneralController::class, 'storeChildComment'])->name('replies.store');
     Route::middleware(StaffUser::class)->group(function() {
         Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
         Route::get('/dashboard/posts',              [PostController::class, 'index'])->name('dashboard.posts.index');

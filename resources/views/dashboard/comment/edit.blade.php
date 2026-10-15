@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
 <!-- Page content-->
+@if (session('error'))
+    <div class="alert alert-danger my-3" role="alert">{{ session('error') }}</div>
+@endif
 <div class="d-flex container justify-content-md-center align-items-center">
-    @if (session('error'))
-        <div class="alert alert-danger mt-3" role="alert">{{ session('error') }}</div>
-    @endif
     <div class="card my-5 row justify-content-md-center p-3" style="width: 400px; height: min-content;">
         <h1 class="text-center">{{ __('Edit a Comment') }}</h1>
         <form class="mb-4" action="{{ route('dashboard.comments.update', ['id' => $comment->id]) }}" method="POST">
@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="form-floating @error('post_id') is-invalid @enderror">
                     <select for="post_id" class="form-select mb-3" name="post_id" id="post_id">
-                        <option selected>{{ __('Select a post') }}</option>
+                        <option value="{{ null }}" selected>{{ __('Select a post') }}</option>
                         @foreach ($posts as $post)
                             <option value="{{ $post->id }}" {{ $comment->post_id == $post->id ? 'selected' : '' }}>{{ $post->title }}</option>
                         @endforeach
@@ -37,6 +37,18 @@
                 </div>
             </div>
             <div class="row">
+                <div class="form-floating @error('parent_comment_id') is-invalid @enderror">
+                    <select for="parent_comment_id" class="form-select mb-3" name="parent_comment_id" id="parent_comment_id">
+                        <option value="{{ null }}" selected>{{ __('Select a parent comment (optional)') }}</option>
+                        @foreach ($parentComments as $parentComment)
+                            <option value="{{ $parentComment->id }}" {{ $comment->parent_comment_id == $parentComment->id ? 'selected' : '' }}>{{ $parentComment->text }}</option>
+                        @endforeach
+                    </select>
+                    <label class="ms-3" for="parent_comment_id">{{ __('Parent Comment') }}</label>
+                    @error('parent_comment_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="form-floating @error('text') is-invalid @enderror">
                     <textarea for="text" class="form-control mb-3" style="height: 150px"id="text" name="text" placeholder="{{ __('Comment Message') }}">{{ $comment->text }}</textarea>
                     <label class="ms-3" for="text">{{ __('Comment Message') }}</label>

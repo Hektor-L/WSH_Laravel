@@ -31,7 +31,10 @@ class CommentController extends Controller
             $comment->post_id = $request->input('post_id');
             $comment->parent_comment_id = $request->input('parent_comment_id');
             if($comment->post_id === null && $comment->parent_comment_id === null) {
-                session()->flash('error', 'Erro ao armazenar: Um comentário deve estar associado a um post ou a outro comentário.');
+                session()->flash('error', 'Error on storing: A comment must be associated with either a post or another comment.');
+                return redirect()->route('dashboard.comments.create');
+            } else if($comment->post_id !== null && $comment->parent_comment_id !== null) {
+                session()->flash('error', 'Error on storing: this comment cannot be associated with both a post and a comment.');
                 return redirect()->route('dashboard.comments.create');
             }
             $comment->save();
@@ -52,10 +55,11 @@ class CommentController extends Controller
             $users = \App\Models\User::all();
             $posts = \App\Models\Post::all();
             $comment = Comment::find($id);
-            return view('dashboard.comment.edit', ['comment' => $comment, 'users' => $users, 'posts' => $posts]);
+            $parentComments = Comment::all()->where('parent_comment_id', null);
+            return view('dashboard.comment.edit', ['comment' => $comment, 'users' => $users, 'posts' => $posts, 'parentComments' => $parentComments]);
         //se der falha, cospe mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('error', 'Erro ao carregar: ' . $e->getMessage());
+            session()->flash('error', 'Error on loading: ' . $e->getMessage());
             return redirect()->route('dashboard.comments.index');
         }
     }
@@ -68,6 +72,13 @@ class CommentController extends Controller
             $comment->commenter_id = $request->input('commenter_id');
             $comment->post_id = $request->input('post_id');
             $comment->parent_comment_id = $request->input('parent_comment_id');
+            if($comment->post_id === null && $comment->parent_comment_id === null) {
+                session()->flash('error', 'Error on storing: A comment must be associated with either a post or another comment.');
+                return redirect()->route('dashboard.comments.create');
+            } else if($comment->post_id !== null && $comment->parent_comment_id !== null) {
+                session()->flash('error', 'Error on storing: this comment cannot be associated with both a post and a comment.');
+                return redirect()->route('dashboard.comments.create');
+            }
             $comment->save();
             //mensagem de êxito.
             session()->flash('msg', 'Atualizado com sucesso!');
@@ -75,7 +86,7 @@ class CommentController extends Controller
             //Mensagem de erro.
         } catch (\Exception $e) {
             session()->flash('error', 'Erro ao atualizar: ' . $e->getMessage());
-            return redirect()->route('dashboard.comments.edit', ['comment' => $comment]);
+            return redirect()->route('dashboard.comments.edit', ['id' => $id]);
         }   
     }
 

@@ -36,7 +36,9 @@ class ProfileController extends Controller
             $request->user()->email = $request->input('email');
             $request->user()->birth_date = $request->input('birth_date');
             $request->user()->description = $request->input('description');
+            if($request->file('image') != null) {
             $request->user()->profile_picture_path = $request->file('image') ?->store('profile_pictures', 'public');
+            }
             if ($request->user()->isDirty('email')) {
                 $request->user()->email_verified_at = null;
             }

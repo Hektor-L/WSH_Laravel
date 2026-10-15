@@ -226,10 +226,20 @@
   "Select a post": "Selecione uma publicação",
   "Select a category": "Selecione uma categoria",
   "Comment Message": "Mensagem do Comentário",
+  "Reply Message": "Mensagem da Resposta",
   "Create Comment": "Criar Comentário",
   "Create a Comment": "Criar um Comentário",
   "Create a new Comment": "Criar um novo Comentário",
   "Select a post to comment": "Selecione uma publicação para comentar",
   "Select an user who will comment": "Selecione um usuário que irá comentar",
-  "No Comments found.": "Nenhum Comentário encontrado."
+  "No Comments found.": "Nenhum Comentário encontrado.",
+  "Send": "Enviar",
+  "Profile Picture": "Foto de Perfil",
+  "Default Profile Picture": "Foto de Perfil Padrão",
+  "Sign Up": "Registre-se",
+  "to comment on this post!": "para comentar nesta publicação!",
+  "to reply to this comment!": "para responder a este comentário!",
+  "Error on storing: A comment must be associated with either a post or another comment.": "Erro ao armazenar: Um comentário deve estar associado a um post ou a outro comentário.",
+  "Error on storing: this comment cannot be associated with both a post and a comment.": "Erro ao armazenar: Este comentário não pode estar associado a ambos uma publicação e um comentário.",
+  "Error on loading: ": "Erro ao carregar: "
 }

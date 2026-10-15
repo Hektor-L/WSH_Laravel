@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')       
 <!-- Page header with logo and tagline-->
+@if (session('error'))
+    <div class="alert alert-danger my-3" role="alert">{{ session('error') }}</div>
+@endif
 <div class="d-flex container justify-content-md-center align-items-center">
-    @if (session('error'))
-        <div class="alert alert-danger mt-3" role="alert">{{ session('error') }}</div>
-    @endif
     <div class="card mb-10 row justify-content-md-center p-3" style="width: 400px; height: min-content;">
         <h1 class="text-center">{{ __('Create a Comment') }}</h1>
         <form class="mb-4" action="{{ route('dashboard.comments.store') }}" method="POST">
