@@ -1,4 +1,4 @@
-![Logo](https://res.cloudinary.com/svdflnjt/image/upload/v1789745325/WorkServiceHub-Logo.svg)
+![Logo](public/WorkServiceHub-Logo.svg?raw=true)
 ## Sobre o Projeto WorkServiceHub
 
 Este projeto foi feito para o trabalho integrador do curso de Informática do *IFMG Campus Formiga* por **Hektor L**.
