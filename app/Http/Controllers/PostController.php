@@ -23,12 +23,16 @@ class PostController extends Controller
 
     public function store(Request $request) {
         try {
+            $request->validate([
+                'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:10240'],
+            ]);
             //Armazena as informações dadas
             $post = new Post();
             $post->title = $request->input('title');
             $post->description = $request->input('description');
             $post->poster_id = $request->input('poster_id');
             $post->category_id = $request->input('category_id');
+            $post->image_path = $request->file('image') ?->store('post_images', 'public');
             $post->save();
             //Mensagem de êxito.
             session()->flash('msg', 'Armazenado com sucesso!');
@@ -36,10 +40,9 @@ class PostController extends Controller
 
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao armazenar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao armazenar: ' . $e->getMessage());
             return redirect()->route('dashboard.posts.create');
         }
-        
     }
 
     public function edit(int $id) {
@@ -51,27 +54,31 @@ class PostController extends Controller
             return view('dashboard.post.edit', ['post' => $post, 'users' => $users, 'categories' => $categories]);
         //se der falha, cospe mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao carregar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao carregar: ' . $e->getMessage());
             return redirect()->route('dashboard.posts.index');
         }
     }
 
     public function update(Request $request, int $id) {
         try {
+            $request->validate([
+                'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:10240'],
+            ]);
             //Armazena a atualização da post.
             $post = Post::find($id);
             $post->title = $request->input('title');
             $post->description = $request->input('description');
             $post->poster_id = $request->input('poster_id');
             $post->category_id = $request->input('category_id');
+            $post->image_path = $request->file('image') ?->store('post_images', 'public');
             $post->save();
             //mensagem de êxito.
             session()->flash('msg', 'Atualizado com sucesso!');
             return redirect()->route('dashboard.posts.index');
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao atualizar: ' . $e->getMessage());
-            return redirect()->route('dashboard.posts.edit', ['post' => $post]);
+            session()->flash('error', 'Erro ao atualizar: ' . $e->getMessage());
+            return redirect()->route('dashboard.posts.edit', ['id' => $id]);
         }   
     }
 
@@ -86,7 +93,7 @@ class PostController extends Controller
             return redirect()->route('dashboard.posts.index');
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao excluir: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao excluir: ' . $e->getMessage());
             return redirect()->route('dashboard.posts.index');
         }
     }

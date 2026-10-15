@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -23,6 +23,9 @@ class UserController extends Controller
 
     public function store(Request $request) {
         try {
+            $request->validate([
+                'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            ]);
             //Armazena as informações dadas
             $user = new User();
             $user->name = $request->input('name');
@@ -31,6 +34,7 @@ class UserController extends Controller
             $user->type = $request->input('type');
             $user->birth_date = $request->input('birth_date');
             $user->description = $request->input('description');
+            $user->profile_picture_path = $request->file('image') ?->store('profile_pictures', 'public');
             $user->save();
             //Mensagem de êxito.
             session()->flash('msg', 'Armazenado com sucesso!');
@@ -38,7 +42,7 @@ class UserController extends Controller
 
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao armazenar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao armazenar: ' . $e->getMessage());
             return redirect()->route('dashboard.users.create');
         }
         
@@ -51,13 +55,16 @@ class UserController extends Controller
             return view('dashboard.user.edit', ['user' => $user]);
         //se der falha, cospe mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao carregar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao carregar: ' . $e->getMessage());
             return redirect()->route('dashboard.users.index');
         }
     }
 
     public function update(Request $request, int $id) {
         try {
+            $request->validate([
+                'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:10240'],
+            ]);
             //Armazena a atualização da post.
             $user = User::find($id);
             $user->name = $request->input('name');
@@ -65,30 +72,33 @@ class UserController extends Controller
             $user->type = $request->input('type');
             $user->birth_date = $request->input('birth_date');
             $user->description = $request->input('description');
+            $user->profile_picture_path = $request->file('image') ?->store('profile_pictures', 'public');
             $user->save();
             //mensagem de êxito.
             session()->flash('msg', 'Atualizado com sucesso!');
             return redirect()->route('dashboard.users.index');
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao atualizar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao atualizar: ' . $e->getMessage());
             return redirect()->route('dashboard.users.edit', ['user' => $user]);
-        }   
+        }
     }
 
     public function destroy(int $id) {
         try {
             //Exclui a post requerida.
             $user = User::find($id);
-            $user->posts()->delete(); // Exclui os posts associados ao usuário
-            $user->comments()->delete(); // Exclui os comentários associados ao usuário
-            $user->delete();
+            Storage::disk('public')->delete($user->posts->image_path); // Exclui as imagens associadas aos posts do usuário
+            $user->posts()->forceDelete(); // Exclui os posts associados ao usuário
+            $user->comments()->forceDelete(); // Exclui os comentários associados ao usuário
+            Storage::disk('public')->delete($user->profile_picture_path); // Exclui a imagem de perfil do usuário
+            $user->forceDelete();
             //Mensagem de êxito.
             session()->flash('msg', 'Registro excluído com sucesso!');
             return redirect()->route('dashboard.users.index');
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao excluir: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao excluir: ' . $e->getMessage());
             return redirect()->route('dashboard.users.index');
         }
     }

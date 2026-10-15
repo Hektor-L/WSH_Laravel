@@ -1,8 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <!-- Page content-->
-<div class="d-flex container justify-content-md-center align-items-center" style="height: 90vh;">
-    <div class="card mb-10 row justify-content-md-center p-3" style="width: 400px; height: min-content;">
+<div class="d-flex container justify-content-md-center align-items-center">
+    @if (session('error'))
+        <div class="alert alert-danger mt-3" role="alert">{{ session('error') }}</div>
+    @endif
+    <div class="card my-5 row justify-content-md-center p-3" style="width: 400px; height: min-content;">
         <h1 class="text-center">{{ __('Edit a Comment') }}</h1>
         <form class="mb-4" action="{{ route('dashboard.comments.update', ['id' => $comment->id]) }}" method="POST">
             @csrf

@@ -1,5 +1,8 @@
 @extends('layouts.app')
-@section('content')       
+@section('content')
+@if (session('msg'))
+    <div class="alert alert-success" role="alert">{{ session('msg') }}</div>
+@endif
 <!-- Page header with logo and tagline-->
 <header class="py-5 border-bottom mb-4">
     <div class="container">

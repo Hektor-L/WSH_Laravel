@@ -30,6 +30,7 @@ class AuthController extends Controller
                 'description' => $user->description,
                 'birth_date' => $user->birth_date,
                 'created_at' => $user->created_at,
+                'profile_picture_path' => $user->profile_picture_path,
                 'type' => $user->type,
                 'token' => $token,
                 'token_type' => 'Bearer'

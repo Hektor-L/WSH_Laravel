@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('text', 300);
-            $table->foreignId('post_id');
+            $table->foreignId('post_id')->nullable();
             $table->foreign('post_id')->references('id')->on('posts');
             $table->foreignId('commenter_id');
             $table->foreign('commenter_id')->references('id')->on('users');
+            $table->foreignId('parent_comment_id')->nullable();
+            $table->foreign('parent_comment_id')->references('id')->on('comments');
             $table->timestamps();
             $table->softDeletes();
         });

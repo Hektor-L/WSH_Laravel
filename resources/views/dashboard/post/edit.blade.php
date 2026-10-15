@@ -1,10 +1,13 @@
 @extends('layouts.app')
 @section('content')
 <!-- Page content-->
-<div class="d-flex container justify-content-md-center align-items-center" style="height: 90vh;">
-    <div class="card mb-10 row justify-content-md-center p-3" >
+@if (session('error'))
+    <div class="alert alert-danger mt-3" role="alert">{{ session('error') }}</div>
+@endif
+<div class="d-flex container justify-content-md-center align-items-center">
+    <div class="card my-5 row justify-content-md-center p-3" >
         <h1 class="text-center">{{ __('Edit a Post') }}</h1>
-        <form class="mb-4" action="{{ route('dashboard.posts.update', ['id' => $post->id]) }}" method="POST">
+        <form class="mb-4" action="{{ route('dashboard.posts.update', ['id' => $post->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('patch')
             <div class="row">
@@ -47,6 +50,9 @@
                     @error('category_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                    <div>
+                        <input class="mb-3" type="file" name="image" id="image" accept="image/*">
+                    </div>
                 </div>
             <div class="row">
                 <div class="col-md-4">

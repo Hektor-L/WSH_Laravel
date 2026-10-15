@@ -24,7 +24,7 @@ class GeneralController extends Controller
         return view('post-create', ['user' => $request->user(), 'categories' => $categories]);
     }
 
-    public function store(Request $request) {
+    public function storePost(Request $request) {
         try {
             //Armazena as informações dadas
             $post = new Post();
@@ -32,6 +32,7 @@ class GeneralController extends Controller
             $post->description = $request->input('description');
             $post->poster_id = $request->input('poster_id');
             $post->category_id = $request->input('category_id');
+            $post->image_path = $request->file('image') ?->store('post_images', 'public');
             $post->save();
             //Mensagem de êxito.
             session()->flash('msg', 'Armazenado com sucesso!');
@@ -39,48 +40,70 @@ class GeneralController extends Controller
 
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao armazenar: ' . $e->getMessage());
-            return redirect()->route('dashboard.posts.create');
+            session()->flash('error', 'Erro ao armazenar: ' . $e->getMessage());
+            return redirect()->route('posts.create');
+        }
+    }
+
+    public function storeComment(Request $request, int $postId) {
+        try {
+            //Armazena as informações dadas
+            $comment = new Comment();
+            $comment->text = $request->input('text');
+            $comment->commenter_id = $request->user()->id;
+            $comment->post_id = $postId;
+            $comment->save();
+            //Mensagem de êxito.
+            session()->flash('msg', 'Armazenado com sucesso!');
+            return redirect()->route('index');
+
+            //Mensagem de erro.
+        } catch (\Exception $e) {
+            session()->flash('error', 'Erro ao armazenar: ' . $e->getMessage());
+            return redirect()->route('posts.create');
+        }
+    }
+
+    public function storeChildComment(Request $request, int $parentCommentId) {
+        try {
+            //Armazena as informações dadas
+            $comment = new Comment();
+            $comment->text = $request->input('text');
+            $comment->commenter_id = $request->user()->id;
+            $comment->parent_comment_id = $parentCommentId;
+            $comment->save();
+            //Mensagem de êxito.
+            session()->flash('msg', 'Armazenado com sucesso!');
+            return redirect()->route('index');
+
+            //Mensagem de erro.
+        } catch (\Exception $e) {
+            session()->flash('error', 'Erro ao armazenar: ' . $e->getMessage());
+            return redirect()->route('posts.create');
         }
     }
 
     public function view(int $id) {
         //Redireciona o usuário à tela de edição de posts.
         $post = Post::find($id);
-        $comments = Comment::where('post_id', $post->id)->paginate(15);
-        return view('post-view', ['post' => $post, 'comments' => $comments]);
-    }
-
-    public function update(Request $request, int $id) {
-        try {
-            //Armazena a atualização da post.
-            $post = Post::find($id);
-            $post->title = $request->input('title');
-            $post->description = $request->input('description');
-            $post->poster_id = $request->input('poster_id');
-            $post->category_id = $request->input('category_id');
-            $post->save();
-            //mensagem de êxito.
-            session()->flash('msg', 'Atualizado com sucesso!');
-            return redirect()->route('index');
-            //Mensagem de erro.
-        } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao atualizar: ' . $e->getMessage());
-            return redirect()->route('posts.view', ['id' => $id]);
-        }   
+        $category = $post->categories;
+        $comments = Comment::where('post_id', $post->id);
+        session()->flash('commentList', $comments->get()->__tostring());
+        return view('post-view', ['post' => $post, 'comments' => $comments->paginate(20), 'category' => $category]);
     }
 
     public function destroy(int $id) {
         try {
             //Exclui a post requerida.
             $post = Post::find($id);
+            $post->comments()->delete();
             $post->delete();
             //Mensagem de êxito.
             session()->flash('msg', 'Registro excluído com sucesso!');
             return redirect()->route('index');
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao excluir: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao excluir: ' . $e->getMessage());
             return redirect()->route('posts.view', ['id' => $id]);
         }
     }
@@ -105,7 +128,7 @@ class GeneralController extends Controller
             $categories = Category::all()->split(2);
             return view('index', ['posts' => $posts, 'categories' => $categories,'filtro' => '']);
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao excluir: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao excluir: ' . $e->getMessage());
             return redirect()->route('index');
         }
         //procura posts correspondentes.

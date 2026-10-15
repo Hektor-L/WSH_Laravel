@@ -1,5 +1,8 @@
 @extends('layouts.app')
-@section('content')       
+@section('content')
+@if (session('msg'))
+    <div class="alert alert-success" role="alert">{{ session('msg') }}</div>
+@endif
 <!-- Page header with logo and tagline-->
 <header class="py-5 border-bottom mb-4">
     <div class="container">
@@ -21,6 +24,7 @@
                     <tr>
                         <th scope="col">{{ __('ID') }}</th>
                         <th scope="col">{{ __('Post') }}</th>
+                        <th scope="col">{{ __('Parent Comment') }}</th>
                         <th scope="col">{{ __('Author') }}</th>
                         <th scope="col">{{ __('Date of Creation') }}</th>
                         <th scope="col">{{ __('Date of Update') }}</th>
@@ -31,7 +35,14 @@
             @foreach ($comments as $comment)
                 <tr>
                     <th scope="row">{{ $comment->id }}</th>
-                    <td>{{ $comment->posts->title }}</td>
+                    @if ($comment->posts)
+                        <td>{{ $comment->posts->title }}</td>
+                    @else <td>{{ __('Null') }}</td>
+                    @endif
+                    @if ($comment->parentComment)
+                        <td>{{ $comment->parentComment->text }}</td>
+                    @else <td>{{ __('Null') }}</td>
+                    @endif
                     <td>{{ $comment->users->name }}</td>
                     <td>{{ $comment->created_at }}</td>
                     <td>{{ $comment->updated_at }}</td>

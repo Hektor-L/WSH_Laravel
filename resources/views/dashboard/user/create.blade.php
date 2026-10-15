@@ -1,10 +1,13 @@
 @extends('layouts.app')
 @section('content')       
 <!-- Page header with logo and tagline-->
-<div class="d-flex container justify-content-md-center align-items-center" style="height: 90vh;">
+<div class="d-flex container justify-content-md-center align-items-center">
+    @if (session('error'))
+        <div class="alert alert-danger mt-3" role="alert">{{ session('error') }}</div>
+    @endif
     <div class="card mb-10 row justify-content-md-center p-3" style="width: 75%; height: min-content;">
         <h1 class="text-center">{{ __('Create a User') }}</h1>
-        <form class="mb-3" action="{{ route('dashboard.users.store') }}" method="POST">
+        <form class="mb-3" action="{{ route('dashboard.users.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="form-floating col @error('name') is-invalid @enderror">
@@ -63,6 +66,9 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col">
+                    <input type="file" name="image" id="image" accept="image/*">
+                </div>
                 <div class="col-md-4">
                     <button class="btn btn-primary" type="submit">{{ __('Create') }}</button>
                 </div>

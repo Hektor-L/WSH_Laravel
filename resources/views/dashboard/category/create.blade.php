@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('content')       
 <!-- Page header with logo and tagline-->
-<div class="d-flex container justify-content-md-center align-items-center" style="height: 90vh;">
+<div class="d-flex container justify-content-md-center align-items-center">
+    @if (session('error'))
+        <div class="alert alert-danger mt-3" role="alert">{{ session('error') }}</div>
+    @endif
     <div class="card mb-10 row justify-content-md-center p-3" style="width: 400px; height: min-content;">
         <h1 class="text-center">{{ __('Create a Category') }}</h1>
         <form class="mb-4" action="{{ route('dashboard.categories.store') }}" method="POST">

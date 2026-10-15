@@ -15,8 +15,6 @@
                 <a href="{{ route('dashboard.posts.index') }}" class="card-link">{{ __('Posts') }}</a>
                 <a href="{{ route('dashboard.comments.index') }}" class="card-link">{{ __('Comments') }}</a>
                 <a href="{{ route('dashboard.categories.index') }}" class="card-link">{{ __('Categories') }}</a>
-                
-                
             </div>
         </div>
     </div>

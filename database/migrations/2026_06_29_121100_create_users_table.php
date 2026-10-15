@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('type')->default(UserType::Common->value);
             $table->text('description')->nullable();
             $table->string('password');
+            $table->string('profile_picture_path')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

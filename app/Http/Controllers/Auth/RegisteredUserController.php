@@ -49,7 +49,10 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        if ($user->type === UserType::Staff) {
+            return redirect(route('dashboard', absolute: false));
+        } else {
+            return redirect(route('index', absolute: false));
+        }
     }
 }

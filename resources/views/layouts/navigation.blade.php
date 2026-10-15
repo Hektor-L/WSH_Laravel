@@ -15,12 +15,18 @@
                 @auth
                     <li class="nav-item dropdown ps-2">
                         <a role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img width="40px" class="object-fit-cover rounded-circle" src="{{ asset("WorkServiceHub-DefaultProfilePic.svg") }}">
+                            @if (Auth::user()->profile_picture_path)
+                                <img width="40px" src="{{ asset('storage/' . Auth::user()->profile_picture_path) }}" alt="Profile Picture" class="object-fit-cover rounded-circle">
+                            @else
+                                <img width="40px" src="{{ asset('WorkServiceHub-DefaultProfilePic.svg') }}" alt="Default Profile Picture" class="object-fit-cover rounded-circle">
+                            @endif
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" id="navbarDropdown">
                             <li><span class="dropdown-header">{{ Auth::user()->name }}</span></li>
                             <li><a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
-                            <li><a class="dropdown-item" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
+                            @if (Auth::user()->type === App\Enums\UserType::Staff)
+                                <li><a class="dropdown-item" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
+                            @endif
                             <li><hr class="dropdown-divider"></li>
                             <li><div class="dropdown-item d-flex justify-content-around align-items-center">
                                 </div></li>

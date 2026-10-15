@@ -33,7 +33,7 @@ class CategoryController extends Controller
 
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao armazenar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao armazenar: ' . $e->getMessage());
             return redirect()->route('dashboard.categories.create');
         }
     }
@@ -47,7 +47,7 @@ class CategoryController extends Controller
             return view('dashboard.category.edit', ['category' => $category, 'users' => $users, 'posts' => $posts]);
         //se der falha, cospe mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao carregar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao carregar: ' . $e->getMessage());
             return redirect()->route('dashboard.categories.index');
         }
     }
@@ -63,7 +63,7 @@ class CategoryController extends Controller
             return redirect()->route('dashboard.categories.index');
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao atualizar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao atualizar: ' . $e->getMessage());
             return redirect()->route('dashboard.categories.edit', ['category' => $category]);
         }   
     }
@@ -78,7 +78,7 @@ class CategoryController extends Controller
             return redirect()->route('dashboard.categories.index');
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao excluir: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao excluir: ' . $e->getMessage());
             return redirect()->route('dashboard.categories.index');
         }
     }

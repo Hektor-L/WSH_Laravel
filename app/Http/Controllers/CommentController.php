@@ -18,7 +18,8 @@ class CommentController extends Controller
         //Redireciona o usuário à tela de criação de comments
         $users = \App\Models\User::all();
         $posts = \App\Models\Post::all();
-        return view('dashboard.comment.create', ['user' => $request->user(), 'posts' => $posts, 'users' => $users]);
+        $comments = Comment::all()->where('parent_comment_id', null);
+        return view('dashboard.comment.create', ['user' => $request->user(), 'posts' => $posts, 'users' => $users, 'comments' => $comments]);
     }
 
     public function store(Request $request) {
@@ -28,6 +29,11 @@ class CommentController extends Controller
             $comment->text = $request->input('text');
             $comment->commenter_id = $request->input('commenter_id');
             $comment->post_id = $request->input('post_id');
+            $comment->parent_comment_id = $request->input('parent_comment_id');
+            if($comment->post_id === null && $comment->parent_comment_id === null) {
+                session()->flash('error', 'Erro ao armazenar: Um comentário deve estar associado a um post ou a outro comentário.');
+                return redirect()->route('dashboard.comments.create');
+            }
             $comment->save();
             //Mensagem de êxito.
             session()->flash('msg', 'Armazenado com sucesso!');
@@ -35,7 +41,7 @@ class CommentController extends Controller
 
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao armazenar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao armazenar: ' . $e->getMessage());
             return redirect()->route('dashboard.comments.create');
         }
     }
@@ -49,7 +55,7 @@ class CommentController extends Controller
             return view('dashboard.comment.edit', ['comment' => $comment, 'users' => $users, 'posts' => $posts]);
         //se der falha, cospe mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao carregar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao carregar: ' . $e->getMessage());
             return redirect()->route('dashboard.comments.index');
         }
     }
@@ -61,13 +67,14 @@ class CommentController extends Controller
             $comment->text = $request->input('text');
             $comment->commenter_id = $request->input('commenter_id');
             $comment->post_id = $request->input('post_id');
+            $comment->parent_comment_id = $request->input('parent_comment_id');
             $comment->save();
             //mensagem de êxito.
             session()->flash('msg', 'Atualizado com sucesso!');
             return redirect()->route('dashboard.comments.index');
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao atualizar: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao atualizar: ' . $e->getMessage());
             return redirect()->route('dashboard.comments.edit', ['comment' => $comment]);
         }   
     }
@@ -82,7 +89,7 @@ class CommentController extends Controller
             return redirect()->route('dashboard.comments.index');
             //Mensagem de erro.
         } catch (\Exception $e) {
-            session()->flash('erro', 'Erro ao excluir: ' . $e->getMessage());
+            session()->flash('error', 'Erro ao excluir: ' . $e->getMessage());
             return redirect()->route('dashboard.comments.index');
         }
     }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 120);
             $table->text('description');
+            $table->string('image_path')->nullable();
             $table->foreignId('poster_id');
             $table->foreign('poster_id')->references('id')->on('users');
             $table->foreignId('category_id');

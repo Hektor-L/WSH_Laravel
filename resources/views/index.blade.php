@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+    @if (session('error'))
+        <div class="alert my-3 alert-danger" role="alert">{{ session('error') }}</div>
+    @endif
+    @if (session('msg'))
+        <div class="alert my-3 alert-success" role="alert">{{ session('msg') }}</div>
+    @endif
         <!-- Page header with logo and tagline-->
         <header class="py-5 border-bottom mb-4">
             <div class="container">

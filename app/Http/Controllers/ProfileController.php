@@ -30,15 +30,25 @@ class ProfileController extends Controller
     }
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        try {
+            //Armazena a atualização da post.
+            $request->user()->name = $request->input('name');
+            $request->user()->email = $request->input('email');
+            $request->user()->birth_date = $request->input('birth_date');
+            $request->user()->description = $request->input('description');
+            $request->user()->profile_picture_path = $request->file('image') ?->store('profile_pictures', 'public');
+            if ($request->user()->isDirty('email')) {
+                $request->user()->email_verified_at = null;
+            }
+            $request->user()->save();
+            //mensagem de êxito.
+            session()->flash('msg', 'Atualizado com sucesso!');
+            return Redirect::route('profile.edit')->with('status', 'profile-updated');
+            //Mensagem de erro.
+        } catch (\Exception $e) {
+            session()->flash('error', 'Erro ao atualizar: ' . $e->getMessage());
+            return Redirect::route('profile.edit');
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
     /**
