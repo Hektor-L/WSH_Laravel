@@ -5,7 +5,9 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" href="{{ route('index') }}">{{ __('Home') }}</a></li>
+                <li class="nav-item"><a class="nav-link @if (Route::getCurrentRoute()->getName() === 'index')
+                    active
+                @endif" href="{{ route('index') }}">{{ __('Home') }}</a></li>
             <div style="width: 100px;" class="d-flex justify-content-around align-items-center">
                 <input type="radio" class="btn-check" name="mode" id="LightMode" autocomplete="off">
                 <label class="btn btn-outline-secondary" for="LightMode"><i class="bi bi-sun" id="LightIcon"></i></label>

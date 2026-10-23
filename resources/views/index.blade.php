@@ -15,7 +15,6 @@
                     @auth
                         <a class="btn btn-outline-primary btn-lg" href="{{ route('posts.create') }}" style="width: 70%; min-width: max-content;">{{ __('Create a new Post') }} <i class="bi bi-pencil-square"></i></a>
                     @endauth
-                        
                 </div>
             </div>
         </header>

@@ -87,9 +87,8 @@ class GeneralController extends Controller
         //Redireciona o usuário à tela de edição de posts.
         $post = Post::find($id);
         $category = $post->categories;
-        $comments = Comment::where('post_id', $post->id);
-        session()->flash('commentList', $comments->get()->__tostring());
-        return view('post-view', ['post' => $post, 'comments' => $comments->paginate(20), 'category' => $category]);
+        $comments = Comment::where('post_id', $post->id)->paginate(20);
+        return view('post-view', ['post' => $post, 'comments' => $comments, 'category' => $category]);
     }
 
     public function destroy(int $id) {

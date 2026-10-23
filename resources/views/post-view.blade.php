@@ -8,7 +8,7 @@
             <a class="badge bg-secondary text-decoration-none link-light" href="{{ route('posts.by-category', $category->id) }}">{{ $category->name }}</a>
         </header>
         @if ($post->image_path)
-            <figure class="mb-4"><img class="img-fluid rounded" src="{{ asset('storage/'.$post->image_path) }}" style="height: fit-content;" alt="Post Image" /></figure>
+            <figure class="mb-4"><img class="img-fluid rounded" src="{{ asset('storage/'.$post->image_path) }}" style="height: 600px" alt="Post Image" /></figure>
         @endif
         <section>
             <p>{{ $post->description }}</p>
@@ -29,8 +29,8 @@
                     @csrf
                     <div class="row">
                         <div class="form-floating @error('text') is-invalid @enderror">
-                            <textarea for="text" class="form-control mb-3" style="height: 100px" id="text" name="text" placeholder="{{ __('Comment Message') }}">{{ old('text') }}</textarea>
-                            <label class="ms-3" for="text">{{ __('Comment Message') }}</label>
+                            <textarea for="text" class="form-control mb-3" style="height: 100px" id="text" name="text" placeholder="{{ __('Interact with the users by commenting in this post!') }}">{{ old('text') }}</textarea>
+                            <label class="ms-3" for="text">{{ __('Interact with the users by commenting in this post!') }}</label>
                             @error('text')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -47,8 +47,8 @@
     @else
         <div class="my-4"><a href="{{ route('register') }}">{{ __('Sign Up') }}</a> {{ __('to comment on this post!') }}</div>
     @endauth
-    @if (session('commentList') == '[]')
-        <div class="d-flex container justify-content-center align-items-center" style="height: 150px;">{{ __('No Comments found.') }}</div>
+    @if ($comments->isEmpty())
+        <div class="d-flex container justify-content-center align-items-center" style="height: 150px;">{{ __('No comments in this post.') }}</div>
     @else
     @foreach ($comments as $comment)
     <div class="card mb-3">
@@ -77,8 +77,8 @@
                             @csrf
                             <div class="row">
                                 <div class="form-floating @error('text') is-invalid @enderror">
-                                    <textarea for="text" class="form-control mb-3" style="height: 100px" id="text" name="text" placeholder="{{ __('Reply Message') }}">{{ old('text') }}</textarea>
-                                    <label class="ms-3" for="text">{{ __('Reply Message') }}</label>
+                                    <textarea for="text" class="form-control mb-3" style="height: 100px" id="text" name="text" placeholder="{{ __('Interact with the users by replying to this comment!') }}">{{ old('text') }}</textarea>
+                                    <label class="ms-3" for="text">{{ __('Interact with the users by replying to this comment!') }}</label>
                                     @error('text')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
